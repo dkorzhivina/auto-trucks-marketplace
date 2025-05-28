@@ -1,0 +1,201 @@
+'use strict';
+
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    const trucks = [
+      // КамАЗ (новые и актуальные модели)
+      {
+        title: 'КамАЗ-54901',
+        brand: 'КАМАЗ',
+        description: 'Флагманский тягач с кабиной Mercedes-Benz',
+        payload_capacity: 12000,
+        price: 8000000,
+        image_url: 'https://example.com/kamaz-54901.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'КамАЗ-5490 Neo',
+        brand: 'КАМАЗ',
+        description: 'Обновлённая версия с улучшенной эргономикой',
+        payload_capacity: 11500,
+        price: 7500000,
+        image_url: 'https://example.com/kamaz-5490neo.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'КамАЗ-65801',
+        brand: 'КАМАЗ',
+        description: 'Самосвал для строительства и карьеров',
+        payload_capacity: 18000,
+        price: 6800000,
+        image_url: 'https://example.com/kamaz-65801.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'КамАЗ-65802',
+        brand: 'КАМАЗ',
+        description: 'Строительный самосвал с увеличенной грузоподъёмностью',
+        payload_capacity: 20000,
+        price: 7000000,
+        image_url: 'https://example.com/kamaz-65802.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'КамАЗ-65201',
+        brand: 'КАМАЗ',
+        description: 'Тяжёлый самосвал (до 20 т)',
+        payload_capacity: 20000,
+        price: 6500000,
+        image_url: 'https://example.com/kamaz-65201.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'КамАЗ-65206',
+        brand: 'КАМАЗ',
+        description: 'Трёхосный самосвал для карьеров',
+        payload_capacity: 21000,
+        price: 6700000,
+        image_url: 'https://example.com/kamaz-65206.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'КамАЗ-65115',
+        brand: 'КАМАЗ',
+        description: 'Седельный тягач для магистральных перевозок',
+        payload_capacity: 13000,
+        price: 7200000,
+        image_url: 'https://example.com/kamaz-65115.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'КамАЗ-65116',
+        brand: 'КАМАЗ',
+        description: 'Модернизированный тягач с двигателем P6 (450 л.с.)',
+        payload_capacity: 13000,
+        price: 7300000,
+        image_url: 'https://example.com/kamaz-65116.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'КамАЗ-53605',
+        brand: 'КАМАЗ',
+        description: 'Среднетоннажный грузовик (до 10 т)',
+        payload_capacity: 10000,
+        price: 5000000,
+        image_url: 'https://example.com/kamaz-53605.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'КамАЗ-43501 "Мустанг"',
+        brand: 'КАМАЗ',
+        description: 'Военный грузовик 4×4',
+        payload_capacity: 7000,
+        price: 9000000,
+        image_url: 'https://example.com/kamaz-43501.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+
+      // ГАЗ (современные модели)
+      {
+        title: 'ГАЗон Next',
+        brand: 'ГАЗ',
+        description: 'Современная замена ГАЗ-3309 (до 8,5 т)',
+        payload_capacity: 8500,
+        price: 3500000,
+        image_url: 'https://example.com/gazon-next.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'ГАЗ-3309',
+        brand: 'ГАЗ',
+        description: 'Дизельный грузовик (классика)',
+        payload_capacity: 6000,
+        price: 2800000,
+        image_url: 'https://example.com/gaz-3309.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'ГАЗ-3310 "Валдай"',
+        brand: 'ГАЗ',
+        description: 'Среднетоннажный грузовик (до 6 т)',
+        payload_capacity: 6000,
+        price: 3000000,
+        image_url: 'https://example.com/gaz-3310.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+
+      // Урал (современные и военные модели)
+      {
+        title: 'Урал Next',
+        brand: 'Урал',
+        description: 'Современная версия Урал-4320',
+        payload_capacity: 11000,
+        price: 6000000,
+        image_url: 'https://example.com/ural-next.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'Урал-4320',
+        brand: 'Урал',
+        description: 'Легендарный армейский грузовик 6×6',
+        payload_capacity: 12000,
+        price: 6500000,
+        image_url: 'https://example.com/ural-4320.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+
+      // МАЗ (белорусские, но популярные в России)
+      {
+        title: 'МАЗ-6430',
+        brand: 'МАЗ',
+        description: 'Седельный тягач для магистральных перевозок',
+        payload_capacity: 14000,
+        price: 7000000,
+        image_url: 'https://example.com/maz-6430.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'МАЗ-5440',
+        brand: 'МАЗ',
+        description: 'Тягач с кабиной Mercedes-Benz',
+        payload_capacity: 14000,
+        price: 7100000,
+        image_url: 'https://example.com/maz-5440.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'МАЗ-5551',
+        brand: 'МАЗ',
+        description: 'Среднетоннажный самосвал (до 9,5 т)',
+        payload_capacity: 9500,
+        price: 6000000,
+        image_url: 'https://example.com/maz-5551.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+    ];
+
+    await queryInterface.bulkInsert('Trucks', trucks, {});
+  },
+
+  async down(queryInterface, Sequelize) {
+    await queryInterface.bulkDelete('Trucks', null, {});
+  }
+};

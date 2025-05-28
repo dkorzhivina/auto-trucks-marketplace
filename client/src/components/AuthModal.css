@@ -1,0 +1,140 @@
+.auth-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.auth-modal-content {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px 40px 40px;
+  width: 350px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  position: relative;
+  text-align: center;
+}
+
+.auth-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.auth-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 30px;
+  margin: 0 auto;
+  flex: 1;
+  justify-content: center;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  padding-bottom: 6px;
+  cursor: pointer;
+  color: #555;
+  border-bottom: 3px solid transparent;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.tab-button.active {
+  color: #003366;
+  border-bottom-color: #c07020;
+}
+
+.close-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  font-weight: bold;
+  padding: 0 6px;
+  line-height: 1;
+}
+
+.auth-form input[type="email"],
+.auth-form input[type="password"],
+.auth-form input[type="text"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.auth-form input[type="email"]:focus,
+.auth-form input[type="password"]:focus,
+.auth-form input[type="text"]:focus {
+  border-color: #c07020;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  color: #555;
+}
+
+.auth-submit-btn {
+  background-color: #003366;
+  color: white;
+  border: none;
+  padding: 12px 0;
+  font-size: 18px;
+  border-radius: 8px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: 600;
+}
+
+.auth-submit-btn:hover {
+  background-color: #00509e;
+}
+
+.switch-auth-mode {
+  margin-top: 20px;
+  background: none;
+  border: none;
+  color: #c07020;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: underline;
+}
