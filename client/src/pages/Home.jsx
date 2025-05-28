@@ -13,7 +13,7 @@ const Home = () => {
             <Link to="/order" className="btn blue">Оформить заказ</Link>
           </div>
         </div>
-        <img src="/images/truck1.jpg" alt="Грузовик" />
+        <img src="https://avatars.mds.yandex.net/get-altay/9830718/2a000001919856f599316c9023ce3f61ddd7/XXL_height" alt="Грузовик" />
       </section>
 
       <section className="features">
