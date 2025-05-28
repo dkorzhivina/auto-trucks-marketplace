@@ -19,11 +19,21 @@ app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/api/auth', authRoutes);
-app.use('/api', profileRoutes);
+app.use('/api/profile', profileRoutes);
 app.use('/api', truckRoutes);
-app.use('/api', orderRoutes);
+app.use('/api/orders', orderRoutes);
 app.use('/api/stats', statsRoutes);
 app.use('/api/buyers', buyerRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Сервер запущен на порту ${PORT}\nSwagger доступен на http://localhost:${PORT}/api-docs`));
+
+// ✅ Добавлено условие для автотестов
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Сервер запущен на порту ${PORT}`);
+    console.log(`Swagger доступен на http://localhost:${PORT}/api-docs`);
+  });
+}
+
+// ✅ Экспортируем app для supertest
+module.exports = app;

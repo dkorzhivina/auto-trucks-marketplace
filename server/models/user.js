@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 'user',
     },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    }
   });
 
   return User;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'; 
 
 const Support = () => {
   const [messages, setMessages] = useState([
@@ -13,6 +13,13 @@ const Support = () => {
     'Связаться с оператором',
   ];
 
+  const faqResponses = {
+    'как оформить заказ?': 'Чтобы оформить заказ, перейдите во вкладку "Оформить заказ" и заполните форму для заказа.',
+    'проблемы с оплатой': 'Попробуйте другой способ оплаты или обратитесь в поддержку.',
+    'гарантии и возврат': 'Вы можете вернуть товар в течение 14 дней.',
+    'связаться с оператором': 'Пожалуйста, ожидайте — оператор скоро подключится.',
+  };
+
   const sendMessage = (text) => {
     if (!text.trim()) return;
 
@@ -20,13 +27,17 @@ const Support = () => {
     setMessages((msgs) => [...msgs, newMessage]);
     setInput('');
 
-    // Имитация ответа бота с небольшой задержкой
     setTimeout(() => {
+      const lowerText = text.trim().toLowerCase();
+      const botReply =
+        faqResponses[lowerText] ||
+        `Вы спросили: "${text}". Наш оператор свяжется с вами в ближайшее время.`;
+
       setMessages((msgs) => [
         ...msgs,
         {
           id: Date.now() + 1,
-          text: `Вы спросили: "${text}". Наш оператор свяжется с вами в ближайшее время.`,
+          text: botReply,
           fromBot: true,
         },
       ]);
