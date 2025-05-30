@@ -15,11 +15,11 @@ const Profile = () => {
 
   useEffect(() => {
     if (!token) {
-      navigate('/'); // Если нет токена — перенаправить на главную
+      navigate('/');
       return;
     }
 
-    // Загрузка данных профиля
+    // Загрузка профиля
     axios
       .get('http://localhost:5000/api/profile', {
         headers: { Authorization: `Bearer ${token}` },
@@ -30,9 +30,9 @@ const Profile = () => {
         setLoading(false);
       })
       .catch(() => {
-        alert('Ошибка при получении профиля. Пожалуйста, войдите снова.');
+        alert('Ошибка при получении профиля. Войдите снова.');
         localStorage.removeItem('token');
-        navigate('/'); // перенаправляем на главную или логин
+        navigate('/');
       });
 
     // Загрузка заказов
@@ -59,6 +59,32 @@ const Profile = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     navigate('/');
+  };
+
+  const handleCancel = (id) => {
+    axios
+      .post(`http://localhost:5000/api/orders/cancel/${id}`, {}, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(() => {
+        setOrders((prev) =>
+          prev.map((order) =>
+            order.id === id
+              ? { ...order, comment: `[ОТМЕНЁН] ${order.comment}` }
+              : order
+          )
+        );
+      });
+  };
+
+  const handleRepeat = (id) => {
+    axios
+      .post(`http://localhost:5000/api/orders/repeat/${id}`, {}, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setOrders((prev) => [res.data, ...prev]);
+      });
   };
 
   if (loading) return <p className="p-4 text-center">Загрузка...</p>;
@@ -92,21 +118,11 @@ const Profile = () => {
         </>
       ) : (
         <>
-          <p>
-            <strong>Email:</strong> {user.email}
-          </p>
-          <p>
-            <strong>Имя:</strong> {user.name || '—'}
-          </p>
-          <p>
-            <strong>Телефон:</strong> {user.phone || '—'}
-          </p>
-          <p>
-            <strong>ID:</strong> {user.id}
-          </p>
-          <p>
-            <strong>Создан:</strong> {new Date(user.createdAt).toLocaleString()}
-          </p>
+          <p><strong>Email:</strong> {user.email}</p>
+          <p><strong>Имя:</strong> {user.name || '—'}</p>
+          <p><strong>Телефон:</strong> {user.phone || '—'}</p>
+          <p><strong>ID:</strong> {user.id}</p>
+          <p><strong>Создан:</strong> {new Date(user.createdAt).toLocaleString()}</p>
           <button className="edit-btn" onClick={() => setEditMode(true)}>
             Редактировать
           </button>
@@ -121,18 +137,14 @@ const Profile = () => {
           <ul>
             {orders.map((order) => (
               <li key={order.id}>
-                <p>
-                  <strong>Модель:</strong> {order.Truck?.title}
-                </p>
-                <p>
-                  <strong>Телефон:</strong> {order.phone}
-                </p>
-                <p>
-                  <strong>Комментарий:</strong> {order.comment || '—'}
-                </p>
+                <p><strong>Модель:</strong> {order.Truck?.title || '—'}</p>
+                <p><strong>Телефон:</strong> {order.phone}</p>
+                <p><strong>Комментарий:</strong> {order.comment || '—'}</p>
                 <p className="text-sm text-gray-500">
                   Оформлен: {new Date(order.createdAt).toLocaleString()}
                 </p>
+                <button onClick={() => handleRepeat(order.id)}>Повторить</button>
+                <button onClick={() => handleCancel(order.id)}>Отменить</button>
               </li>
             ))}
           </ul>

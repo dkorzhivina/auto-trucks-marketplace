@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middleware/authMiddleware');
-const { createOrder, getUserOrders } = require('../controllers/orderController');
+const orderController = require('../controllers/orderController');
 
 /**
  * @swagger
@@ -23,7 +23,11 @@ const { createOrder, getUserOrders } = require('../controllers/orderController')
  *       401:
  *         description: Требуется авторизация
  */
-router.post('/', authMiddleware, createOrder);
-router.get('/', authMiddleware, getUserOrders); // если ты его используешь
+
+router.get('/', authMiddleware, orderController.getUserOrders);
+router.post('/', authMiddleware, orderController.createOrder);
+router.post('/cancel/:id', authMiddleware, orderController.cancelOrder);
+router.post('/repeat/:id', authMiddleware, orderController.repeatOrder);
+
 
 module.exports = router;
