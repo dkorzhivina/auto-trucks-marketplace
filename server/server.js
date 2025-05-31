@@ -24,6 +24,8 @@ app.use('/api', truckRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/stats', statsRoutes);
 app.use('/api/buyers', buyerRoutes);
+app.use('/api/admin', require('./routes/adminRoutes'));
+
 
 const PORT = process.env.PORT || 5000;
 

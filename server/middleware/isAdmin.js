@@ -1,8 +1,8 @@
-const isAdmin = require('../middleware/isAdmin');
-
-module.exports = function isAdmin(req, res, next) {
-  if (req.user && req.user.role === 'admin') {
-    return next(); // ✅ Разрешаем доступ
+const isAdmin = (req, res, next) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ message: 'Доступ запрещён. Только для администратора.' });
   }
-  return res.status(403).json({ message: 'Доступ запрещён: требуется роль администратора' });
+  next();
 };
+
+module.exports = isAdmin;

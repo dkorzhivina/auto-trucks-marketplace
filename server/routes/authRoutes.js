@@ -24,7 +24,6 @@ const { register, login } = require('../controllers/authController');
  *       400:
  *         description: Пользователь уже существует
  */
-router.post('/register', register);
 
 /**
  * @swagger
@@ -49,5 +48,6 @@ router.post('/register', register);
  *         description: Неверный email или пароль
  */
 router.post('/login', login);
+router.post('/register', register);
 
 module.exports = router;
