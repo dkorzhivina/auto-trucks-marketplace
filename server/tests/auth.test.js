@@ -1,17 +1,25 @@
 const request = require('supertest');
 const app = require('../server');
+const { User } = require('../models');
 
 describe('Auth API', () => {
   const testEmail = `testuser${Date.now()}@mail.com`;
+  const testPassword = '123456';
+
+  beforeAll(async () => {
+    await User.destroy({ where: {} }); // Очистка базы перед тестами
+  });
 
   test('Регистрация нового пользователя', async () => {
     const res = await request(app)
       .post('/api/auth/register')
       .send({
-        name: 'Test User',
         email: testEmail,
-        password: '123456',
-        phone: '89998887766',
+        password: testPassword,
+        name: 'Test User',
+        phone: '1234567890',
+        city: 'Moscow',
+        company: 'Truck Co',
       });
 
     expect(res.statusCode).toBe(200);
@@ -23,7 +31,7 @@ describe('Auth API', () => {
       .post('/api/auth/login')
       .send({
         email: testEmail,
-        password: '123456',
+        password: testPassword,
       });
 
     expect(res.statusCode).toBe(200);

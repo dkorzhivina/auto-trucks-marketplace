@@ -1,31 +1,25 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    email: { type: DataTypes.STRING, unique: true, allowNull: false },
-    password: { type: DataTypes.STRING, allowNull: false },
-    name: { type: DataTypes.STRING, allowNull: false },
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    name: DataTypes.STRING,
     role: {
       type: DataTypes.STRING,
-      allowNull: false,
       defaultValue: 'user',
     },
-    phone: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    city: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    company: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    }
+    phone: DataTypes.STRING,
+    city: DataTypes.STRING,
+    company: DataTypes.STRING,
+    role_id: DataTypes.INTEGER,
+  }, {});
 
-  });
+  User.associate = function(models) {
+    User.belongsTo(models.Role, {
+      foreignKey: 'role_id',
+      as: 'roleInfo',
+    });
+  };
 
   return User;
 };

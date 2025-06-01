@@ -4,11 +4,26 @@ const app = require('../server');
 let token;
 
 beforeAll(async () => {
+  const testEmail = `admin${Date.now()}@mail.com`;
+
+  // Регистрируем администратора
+  await request(app)
+    .post('/api/auth/register')
+    .send({
+      email: testEmail,
+      password: 'admin',
+      name: 'Админ',
+      phone: '1234567890',
+      city: 'Москва',
+      company: 'Admin Co',
+    });
+
+  // Входим для получения токена
   const res = await request(app)
     .post('/api/auth/login')
     .send({
-      email: 'admin@mail.com', // замените на валидного пользователя
-      password: 'admin',       // с соответствующим паролем
+      email: testEmail,
+      password: 'admin',
     });
 
   token = res.body.token;
@@ -25,7 +40,7 @@ describe('Orders API', () => {
         comment: 'Тестовый заказ',
       });
 
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(201); // ← исправлено с 200 на 201
     expect(res.body).toHaveProperty('id');
   });
 

@@ -11,9 +11,9 @@ module.exports = {
   test: {
     username: process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD || '12345',
-    database: process.env.DB_NAME || 'auto_trucks_test',
+    database: process.env.DB_NAME_TEST || 'auto_trucks_test',
     host: process.env.DB_HOST || '127.0.0.1',
-    dialect: 'postgres',
+    dialect: 'postgres', // ✅ ОБЯЗАТЕЛЬНО
     logging: false
   },
   production: {

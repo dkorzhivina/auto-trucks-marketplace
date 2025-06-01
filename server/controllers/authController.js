@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const register = async (req, res) => {
-  const { email, password, name } = req.body;
+  const { email, password, name, phone, city, company } = req.body;
 
   try {
     const existingUser = await User.findOne({ where: { email } });
@@ -18,11 +18,14 @@ const register = async (req, res) => {
       email,
       password: hashedPassword,
       name,
+      phone,
+      city,
+      company,
       role: email === 'admin@mail.ru' ? 'admin' : 'user'
     });
 
     const token = jwt.sign(
-      { id: user.id, role: user.role }, // ✅ добавлена роль
+      { id: user.id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '2h' }
     );
@@ -49,7 +52,7 @@ const login = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user.id, role: user.role }, // ✅ добавлена роль
+      { id: user.id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '2h' }
     );
