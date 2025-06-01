@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const { swaggerSpec, swaggerUi } = require('./swagger');  // ✅ Swagger
+const { swaggerSpec, swaggerUi } = require('./swagger'); // Swagger
 
 const authRoutes = require('./routes/authRoutes');
 const profileRoutes = require('./routes/profileRoutes');
@@ -9,27 +9,28 @@ const truckRoutes = require('./routes/truckRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const statsRoutes = require('./routes/stats');
 const buyerRoutes = require('./routes/buyers');
+const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// ✅ Swagger UI по адресу /api-docs
+// Swagger UI доступен по адресу /api-docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+// Основные маршруты API
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api', truckRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/stats', statsRoutes);
 app.use('/api/buyers', buyerRoutes);
-app.use('/api/admin', require('./routes/adminRoutes'));
-
+app.use('/api/admin', adminRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-// ✅ Добавлено условие для автотестов
+// Запуск сервера только если файл запущен напрямую, а не в тестах
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Сервер запущен на порту ${PORT}`);
@@ -37,5 +38,5 @@ if (require.main === module) {
   });
 }
 
-// ✅ Экспортируем app для supertest
+// Экспортируем app для supertest и тестов
 module.exports = app;
