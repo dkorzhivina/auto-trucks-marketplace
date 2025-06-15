@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const { swaggerSpec, swaggerUi } = require('./swagger'); // Swagger
+const { swaggerSpec, swaggerUi } = require('./swagger');
 
 const authRoutes = require('./routes/authRoutes');
 const profileRoutes = require('./routes/profileRoutes');
@@ -16,10 +16,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Swagger UI доступен по адресу /api-docs
+// Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// Основные маршруты API
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api', truckRoutes);
@@ -30,13 +30,16 @@ app.use('/api/admin', adminRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-// Запуск сервера только если файл запущен напрямую, а не в тестах
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Сервер запущен на порту ${PORT}`);
-    console.log(`Swagger доступен на http://localhost:${PORT}/api-docs`);
+    console.log(`Окружение: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`Swagger: http://localhost:${PORT}/api-docs`);
   });
 }
 
-// Экспортируем app для supertest и тестов
+const { sequelize } = require('./models');
+console.log('Подключение к БД:', sequelize.config.database);
+
+
 module.exports = app;
